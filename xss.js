@@ -50,6 +50,18 @@
 	};
 
 	/*
+	 * 增加一个元素
+	 */
+	x.add=function(p, e, params){
+		var E = document.createElement(e);
+		for(key in params){
+			E.key = params[key];
+		}
+		document[p].appendChild(E);
+	}
+
+
+	/*
 	 *绑定事件
 	 */
 	x.bind=function(e,name,fn){
@@ -171,8 +183,19 @@
 	 * 获取当前页面源码
 	 */
 	x.source=function(){
-		return document.documentElement.outerHTML
+		return document.documentElement.outerHTML;
 	}
-	
+
+	/*
+	 * 截图发送
+	 */
+	x.screenshot=function(url){
+		x.add('body', 'script', {'src':'http://html2canvas.hertzen.com/build/html2canvas.js'});
+		html2canvas(document.body, {
+						onrendered:(canvas){
+							x.csrf(url, {'screenshot':canvas.toDataURL()});
+						};
+		})
+
 	return x;
 }();
