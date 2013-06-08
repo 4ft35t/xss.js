@@ -5,7 +5,6 @@
 		'author':'长短短(sogili)'
 	};
 
-	
 	x.x=function(id){return document.getElementById(id)};
 	
 	//容错取值
@@ -171,7 +170,9 @@
 	/*
 	 * 获取当前页面源码
 	 */
-	x.source=function()
+	x.source=function(){
+		return document.documentElement.outerHTML
+	}
 	
 	return x;
 }();
