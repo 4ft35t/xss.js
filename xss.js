@@ -4,6 +4,7 @@
 		'version':'0.2.1',
 		'author':'长短短(sogili)'
 	};
+
 	
 	x.x=function(id){return document.getElementById(id)};
 	
