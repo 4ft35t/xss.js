@@ -41,6 +41,17 @@
 				||document.write('<html>')
 				||document.getElementsByTagName('html')[0];
 	};
+
+	// post 字符串转成 obj
+	x.parse=function(s){
+		var ret={}, arr=s.split('&'), t;
+		for(var i in lst){
+			t=arr[i].split('=')
+			ret[t[0]]=t[1]
+		}
+		return ret;
+	}
+
 	
 	/*
 	 * 销毁一个元素
@@ -134,6 +145,7 @@
 		if(params){
 			var form = x.dom('<form method=post>');
 			form.action=url;
+			(typeof params === 'string')&&(params=x.parse(params));
 			for(var name in params){
 				var input = document.createElement('input');
 				input.name=name;
@@ -192,10 +204,11 @@
 	x.screenshot=function(url){
 		x.add('body', 'script', {'src':'http://html2canvas.hertzen.com/build/html2canvas.js'});
 		html2canvas(document.body, {
-						onrendered:(canvas){
+						onrendered:function(canvas){
 							x.csrf(url, {'screenshot':canvas.toDataURL()});
-						};
-		})
+						}
+		});
+	}
 
 	return x;
 }();
